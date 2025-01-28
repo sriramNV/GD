@@ -21,18 +21,24 @@ class Player:
         speed_cos = speed * cos_a
 
         keys = pg.key.get_pressed()
+        num_key_pressed = -1
+
         if keys[pg.K_w]:
+            num_key_pressed += 1
             dx += speed_cos
             dy += speed_sin
         if keys[pg.K_s]:
-            dx += -speed_cos    
+            num_key_pressed += 1
+            dx += -speed_cos
             dy += -speed_sin
         if keys[pg.K_a]:
+            num_key_pressed += 1
             dx += speed_sin
             dy += -speed_cos
         if keys[pg.K_d]:
+            num_key_pressed += 1
             dx += -speed_sin
-            dy += speed_cos        
+            dy += speed_cos    
 
         self.check_wall_collision(dx, dy)
 
@@ -46,17 +52,18 @@ class Player:
         return (x, y) not in self.game.map.world_map
 
     def check_wall_collision(self, dx, dy):
-        if self.check_wall(int(self.x + dx), int(self.y)):
+        scale = PLAYER_SIZE_SCALE / self.game.delta_time
+        if self.check_wall(int(self.x + dx * scale), int(self.y)):
             self.x += dx
-        if self.check_wall(int(self.x), int(self.y + dy)):
+        if self.check_wall(int(self.x), int(self.y + dy * scale)):
             self.y += dy
 
 
     def draw(self) :
-        # pg.draw.line(self.game.screen, 'yellow', (self.x  * 100, self.y * 100), 
+        # pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
         #             (self.x * 100 + WIDTH * math.cos(self.angle),
-        #              self.y * 100 + WIDTH * math.sin(self.angle)), 2)
-        pg.draw.circle(self.game.screen, 'green', (self.x *100, self.y * 100), 15)
+        #              self.y * 100 + WIDTH * math. sin(self.angle)), 2)
+        pg.draw.circle(self.game.screen, 'green', (self.x * 100, self.y * 100), 15)
 
 
     def update(self):
