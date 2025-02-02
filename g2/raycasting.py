@@ -11,6 +11,20 @@ class Raycasting:
         self.textures = self.game.object_renderer.wall_textures 
         texture_vert, texture_hor = 1, 1
     
+    def get_objects_to_render(self):
+        self.objects_to_render = []
+        for ray, values in enumerate(self.ray_casting_result):
+            depth, proj_height, texture, offset = values
+
+            wall_column = self.textures[texture].subsurface(
+                offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
+            )
+            wall_column = pg.transform.scale(wall_column, (SCALE, proj_height))
+            wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
+
+            self.objects_to_render.append((depth, wall_column, wall_pos))
+
+
     def ray_casting(self):
         self.ray_casting_result = []
         texture_vert, texture_hor = 1, 1        
@@ -87,3 +101,4 @@ class Raycasting:
 
     def update(self):
         self.ray_casting()
+        self.get_objects_to_render()
