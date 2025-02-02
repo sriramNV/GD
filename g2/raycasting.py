@@ -6,10 +6,14 @@ from settings import *
 class Raycasting:
     def __init__(self, game):
         self.game = game
+        self.objects_to_render = []
+        self.ray_casting_result = []
+        self.textures = self.game.object_renderer.wall_textures 
+        texture_vert, texture_hor = 1, 1
     
     def ray_casting(self):
-        # self.ray_casting_result = []
-        # texture_vert, texture_hor = 1, 1
+        self.ray_casting_result = []
+        texture_vert, texture_hor = 1, 1        
         ox, oy = self.game.player.pos
         x_map, y_map = self.game.player.map_pos
 
@@ -56,9 +60,13 @@ class Raycasting:
             
             #depth
             if depth_vert < depth_hor:
-                depth = depth_vert
+                depth, texture = depth_vert, texture_vert
+                y_vert %= 1
+                offset = y_vert if cos_a > 0 else (1 - y_vert)
             else:
-                depth = depth_hor
+                depth, texture = depth_hor, texture_hor
+                x_hor %= 1
+                offset = (1 - x_hor) if sin_a > 0 else (x_hor)
 
             # removing fishbowl effect
             depth *= math.cos(self.game.player.angle - ray_angle)
@@ -68,9 +76,11 @@ class Raycasting:
             proj_height = SCREEN_DIST / (depth + 0.0001)
 
             #draw walls
-            pg.draw.rect(self.game.screen, color,
-                        (ray * SCALE, HALF_HEIGHT - proj_height // 2, SCALE, proj_height ))
+            # pg.draw.rect(self.game.screen, color,
+            #             (ray * SCALE, HALF_HEIGHT - proj_height // 2, SCALE, proj_height ))
 
+            # raycast res
+            self.ray_casting_result.append((depth, proj_height, texture, offset))
             ray_angle += DELTA_ANGLE
 
 
