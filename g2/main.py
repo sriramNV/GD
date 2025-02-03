@@ -8,6 +8,7 @@ from object_renderer import *
 from sprite_objects import *
 from object_handler import *
 from weapon import *
+from sound import *
 
 class Game:
     def __init__(self):
@@ -25,6 +26,7 @@ class Game:
         self.raycasting = Raycasting(self)
         self.object_handler = ObjectHandler(self)
         self.weapon = Weapon(self)
+        self.sound = Sound(self)
         # self.static_sprite = SpriteObject(self)
         # self.animated_sprite = AnimatedSprite(self)
 
