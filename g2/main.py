@@ -49,13 +49,13 @@ class Game:
 
     def draw(self):
         # to debug in 2d mode
-        self.screen.fill('black')
-        self.map.draw()
-        self.player.draw()
+        # self.screen.fill('black')
+        # self.map.draw()
+        # self.player.draw()
 
         # pseudo 3d render
-        # self.object_renderer.draw()
-        # self.weapon.draw()
+        self.object_renderer.draw()
+        self.weapon.draw()
 
     def check_events(self):
         self.global_trigger= False

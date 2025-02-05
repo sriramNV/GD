@@ -29,18 +29,17 @@ class PahtFinding:
             next_nodes = graph[cur_node]
 
             for next_node in next_nodes:
-                if next_node not in visited:
+                if next_node not in visited and next_node not in self.game.object_handler.npc_positions:
                     queue.append(next_node)
                     visited[next_node] = cur_node
-            return visited
+        return visited
 
 
     def get_next_nodes(self, x, y):
         return [(x + dx, y + dy) for dx, dy in self.ways if (x + dx, y + dy) not in self.game.map.world_map]
 
-
     def get_graph(self):
         for y, row in enumerate(self.map):
             for x, col in enumerate(row):
                 if not col:
-                    self.graph[(x,y)] = self.graph.get((x, y), []) + self.get_next_nodes(x, y)
+                    self.graph[(x, y)] = self.graph.get((x, y), []) + self.get_next_nodes(x, y)
