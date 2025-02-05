@@ -43,11 +43,14 @@ class Game:
         pg.display.set_caption(f'{self.clock.get_fps():.1f}') 
 
     def draw(self):
+        # to debug in 2d mode
         # self.screen.fill('black')
-        self.object_renderer.draw()
-        self.weapon.draw()
         # self.map.draw()
         # self.player.draw()
+
+        # pseudo 3d render
+        self.object_renderer.draw()
+        self.weapon.draw()
 
     def check_events(self):
         for event in pg.event.get():
