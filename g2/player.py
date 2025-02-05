@@ -26,18 +26,18 @@ class Player:
             self.time_prev = time_now
             return True
 
-    # def check_game_over(self):
-    #     if self.health < 1:
-    #         self.game.object_renderer.game_over()
-    #         pg.display.flip()
-    #         pg.time.delay(1500)
-    #         self.game.new_game()
+    def check_game_over(self):
+        if self.health < 1:
+            self.game.object_renderer.game_over()
+            pg.display.flip()
+            pg.time.delay(1500)
+            self.game.new_game()
 
-    # def get_damage(self, damage):
-    #     self.health -= damage
-    #     self.game.object_renderer.player_damage()
-    #     self.game.sound.player_pain.play()
-    #     self.check_game_over()
+    def get_damage(self, damage):
+        self.health -= damage
+        self.game.object_renderer.player_damage()
+        self.game.sound.player_pain.play()
+        self.check_game_over()
 
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
