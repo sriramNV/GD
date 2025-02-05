@@ -30,6 +30,25 @@ class NPC(AnimatedSprite):
         # for 2d Debug
         # self.draw_ray()
     
+    def movement(self):
+        next_pos = self.game.player.pos
+        next_x, next_y = next_pos
+        angle = math.atan2(next_y + 0.5 - self.y, next_x + 0.5 - self.x)
+        dx = math.cos(angle) * self.speed
+        dy = math.sin(angle) * self.speed
+        self.check_wall_collision(dx, dy)
+
+
+    def check_wall(self, x, y):
+        return (x, y) not in self.game.map.world_map
+
+    def check_wall_collision(self, dx, dy):
+        if self.check_wall(int(self.x + dx * self.size), int(self.y)):
+            self.x += dx
+        if self.check_wall(int(self.x), int(self.y + dy * self.size)):
+            self.y += dy
+
+
     def animate_pain(self):
         self.animate(self.pain_images)
         if self.animation_trigger:
@@ -37,7 +56,7 @@ class NPC(AnimatedSprite):
 
     def animate_death(self):
         if not self.alive:
-            if self.animation_trigger and self.frame_counter < len(self.death_images) - 1:
+            if self.game.global_trigger and self.frame_counter < len(self.death_images) - 1:
                 self.death_images.rotate(-1)
                 self.image = self.death_images[0]
                 self.frame_counter += 1
@@ -61,8 +80,14 @@ class NPC(AnimatedSprite):
         if self.alive:
             self.raycast_value = self.ray_cast_player_npc()
             self.check_npc_hit()
+            
             if self.pain:
                 self.animate_pain()
+
+            elif self.raycast_value:
+                self.animate(self.walk_images)
+                self.movement()
+
             else:
                 self.animate(self.idle_images)
         else:
