@@ -44,6 +44,9 @@ class NPC(AnimatedSprite):
             dy = math.sin(angle) * self.speed
             self.check_wall_collision(dx, dy)
 
+    def attack(self):
+        if self.animation_trigger:
+            self.game.sound.npc_attack.play()
 
     def check_wall(self, x, y):
         return (x, y) not in self.game.map.world_map
@@ -92,8 +95,13 @@ class NPC(AnimatedSprite):
 
             elif self.raycast_value:
                 self.player_search_trigger = True
-                self.animate(self.walk_images)
-                self.movement()
+
+                if self.dist < self.attack_dist:
+                    self.animate(self.attack_images)
+                    self.attack()
+                else:
+                    self.animate(self.walk_images)
+                    self.movement()
             
             elif self.player_search_trigger:
                 
