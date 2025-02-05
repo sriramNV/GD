@@ -9,6 +9,7 @@ from sprite_objects import *
 from object_handler import *
 from weapon import *
 from sound import *
+from pathfinding import *
 
 class Game:
     def __init__(self):
@@ -30,6 +31,7 @@ class Game:
         self.object_handler = ObjectHandler(self)
         self.weapon = Weapon(self)
         self.sound = Sound(self)
+        self.pathfinding = PahtFinding(self)
         # self.static_sprite = SpriteObject(self)
         # self.animated_sprite = AnimatedSprite(self)
 
@@ -47,13 +49,13 @@ class Game:
 
     def draw(self):
         # to debug in 2d mode
-        # self.screen.fill('black')
-        # self.map.draw()
-        # self.player.draw()
+        self.screen.fill('black')
+        self.map.draw()
+        self.player.draw()
 
         # pseudo 3d render
-        self.object_renderer.draw()
-        self.weapon.draw()
+        # self.object_renderer.draw()
+        # self.weapon.draw()
 
     def check_events(self):
         self.global_trigger= False
