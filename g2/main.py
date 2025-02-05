@@ -31,7 +31,7 @@ class Game:
         self.object_handler = ObjectHandler(self)
         self.weapon = Weapon(self)
         self.sound = Sound(self)
-        self.pathfinding = PahtFinding(self)
+        self.pathfinding = PathFinding(self)
         # self.static_sprite = SpriteObject(self)
         # self.animated_sprite = AnimatedSprite(self)
 

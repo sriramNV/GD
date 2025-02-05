@@ -11,3 +11,4 @@ class Sound:
         self.player_pain = pg.mixer.Sound(self.path + 'player_pain.wav')
         self.shotgun = pg.mixer.Sound(self.path + 'shotgun.wav')
         self.theme = pg.mixer.Sound(self.path + 'theme.mp3')
+        pg.mixer.music.set_volume(0.3)

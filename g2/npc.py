@@ -211,7 +211,7 @@ class CyberDemonNPC(NPC):
         self.speed = 0.015
         self.accuracy = 0.25
 
-class SoilderNPC(NPC):
-    def __init__(self, game, path='resources/sprites/npc/soilder/0.png', pos=(10.5, 5.5),
+class SoldierNPC(NPC):
+    def __init__(self, game, path='resources/sprites/npc/soldier/0.png', pos=(10.5, 5.5),
                     scale=0.6, shift=0.38, animation_time=180):
         super().__init__(game, path, pos, scale, shift, animation_time)
